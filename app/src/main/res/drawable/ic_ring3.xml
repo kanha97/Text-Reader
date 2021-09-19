@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rotate android:fromDegrees="180"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@android:id/background">
+        <shape android:shape="oval">
+            <stroke
+                android:width="8dp"
+                android:color="@color/colorEditTextOutlined"/>
+        </shape>
+    </item>
+
+    <item>
+        <shape
+            android:shape="oval"
+            android:useLevel="false">
+            <stroke
+                android:width="8dp"
+                android:color="@color/colorEditTextHint"
+                android:dashWidth="28dp"
+                android:dashGap="28dp"/>
+
+        </shape>
+    </item>
+
+    <item>
+        <shape
+            android:shape="oval"
+            android:useLevel="false">
+            <stroke
+                android:width="8dp"
+                android:color="@color/colorEditTextOutlined"
+                android:dashWidth="250dp"
+                android:dashGap="300dp"/>
+
+        </shape>
+    </item>
+    <item>
+        <shape
+            android:shape="oval"
+            android:useLevel="false">
+            <stroke
+                android:width="8dp"
+                android:color="@color/colorEditTextHint"
+                android:dashWidth="200dp"
+                android:dashGap="300dp"/>
+
+        </shape>
+    </item>
+
+    <item>
+        <shape
+            android:shape="oval"
+            android:useLevel="false">
+            <stroke
+                android:width="8dp"
+                android:color="@color/colorYellow"
+                android:dashWidth="150dp"
+                android:dashGap="300dp"/>
+
+        </shape>
+    </item>
+
+    <item>
+        <shape
+            android:shape="oval"
+            android:useLevel="false">
+            <stroke
+                android:width="8dp"
+                android:color="@color/colorPrimary"
+                android:dashWidth="100dp"
+                android:dashGap="1000dp"/>
+
+        </shape>
+    </item>
+    <item>
+        <shape
+            android:shape="oval"
+            android:useLevel="false">
+            <stroke
+                android:width="8dp"
+                android:color="@color/colorAccent"
+                android:dashWidth="50dp"
+                android:dashGap="300dp"/>
+
+        </shape>
+    </item>
+</layer-list>
+</rotate>

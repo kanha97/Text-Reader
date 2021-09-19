@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cardViewTransportItem"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="18dp"
+    android:layout_marginBottom="20dp"
+    app:cardCornerRadius="8dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorTransportBack">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imageViewTransport"
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            android:layout_margin="5dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_ring4"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/textViewBoarding"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imageViewPlay"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:scaleType="centerCrop"
+            android:src="@android:drawable/ic_media_play"
+            android:tint="@color/colorPrimary"
+            app:layout_constraintBottom_toBottomOf="@id/imageViewTransport"
+            app:layout_constraintEnd_toEndOf="@id/imageViewTransport"
+            app:layout_constraintStart_toStartOf="@id/imageViewTransport"
+            app:layout_constraintTop_toTopOf="@id/imageViewTransport" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewBoarding"
+            style="@style/AppTheme.AppTextView.TextBlackInterMedium12.Board"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:text="@string/ahemdabad"
+            android:textAlignment="textStart"
+            app:layout_constraintBottom_toTopOf="@+id/textViewTransportId"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/imageViewTransport"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewTransportId"
+            style="@style/AppTheme.AppTextView.TransportTextPoppins"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textAlignment="textStart"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/textViewDate"
+            app:layout_constraintStart_toStartOf="@id/textViewBoarding"
+            app:layout_constraintTop_toBottomOf="@+id/textViewBoarding"
+            tools:text="Shipper Ref : SH/18-19/00001/xyz" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewDate"
+            style="@style/AppTheme.AppTextView.TransportTextPoppins"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            app:layout_constraintBottom_toBottomOf="@id/textViewTransportId"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/textViewTransportId"
+            tools:text=" ETD POL" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

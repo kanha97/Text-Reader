@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewActivityMilestone"
+        style="@style/AppTheme.AppTextView.TextBlackInterMedium12"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:singleLine="true"
+        android:textAlignment="textStart"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/textViewDateCompleted"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Cargo Pickup" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewDateCompleted"
+        style="@style/AppTheme.AppTextView.TextBlackInterMedium12"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/textViewRemarkActivity"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintStart_toEndOf="@+id/textViewActivityMilestone"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="03/19/2020" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewRemarkActivity"
+        style="@style/AppTheme.AppTextView.TextBlackInterMedium12"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:singleLine="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintStart_toEndOf="@+id/textViewDateCompleted"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Lorem Ipsum is sim Lorem Ipsum is sim.." />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

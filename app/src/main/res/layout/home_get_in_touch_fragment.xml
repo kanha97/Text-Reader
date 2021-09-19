@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideLineTop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.1" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imageViewGetInTouchIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_getin_touch"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/guideLineTop" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewGetInTouch"
+            style="@style/AppTheme.AppTextView.Black.InterBold.24"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:text="@string/label_get_in_touch"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/imageViewGetInTouchIcon" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewChangeGetInTouchMessage"
+            style="@style/AppTheme.AppTextView.Black.InterRegular.14.Grey"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/label_any_question_send_us_to_message_and_nwe_will_get_back_to_you_shortly"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textViewGetInTouch" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputLayoutTitle"
+            style="@style/AppTheme.EditTextInputLayout"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="30dp"
+            android:hint="@string/hint_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textViewChangeGetInTouchMessage">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/TextInputEditTextTitle"
+                android:inputType="textCapWords"
+                style="@style/AppTheme.AppEditText" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputLayoutEmail"
+            style="@style/AppTheme.EditTextInputLayout"
+            android:layout_marginHorizontal="16dp"
+            android:hint="@string/hint_email"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textInputLayoutTitle">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/TextInputEditTextEmail"
+                android:inputType="textEmailAddress"
+                style="@style/AppTheme.AppEditText" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputLayoutWriteMsg"
+            style="@style/AppTheme.EditTextInputLayout"
+            android:layout_marginHorizontal="16dp"
+            android:hint="@string/hint_write_your_message"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textInputLayoutEmail">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/TextInputEditTextWriteMsg"
+                style="@style/AppTheme.AppEditText"
+                android:gravity="start"
+                android:lines="4"
+                android:inputType="textCapWords"
+                android:singleLine="false" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layoutShare"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textInputLayoutWriteMsg">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/imageViewWhatsApp"
+                style="@style/ImageShare"
+                android:src="@drawable/ic_whatsapp"
+                app:layout_constraintEnd_toStartOf="@+id/imageViewInstagram"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/imageViewInstagram"
+                style="@style/ImageShare"
+                android:src="@drawable/ic_instagram"
+                app:layout_constraintEnd_toStartOf="@+id/imageViewLinkedIn"
+                app:layout_constraintStart_toEndOf="@+id/imageViewWhatsApp"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/imageViewLinkedIn"
+                style="@style/ImageShare"
+                android:src="@drawable/ic_linkedin"
+                app:layout_constraintEnd_toStartOf="@+id/imageViewFaceBook"
+                app:layout_constraintStart_toEndOf="@+id/imageViewInstagram"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/imageViewFaceBook"
+                style="@style/ImageShare"
+                android:src="@drawable/ic_facebook"
+                app:layout_constraintEnd_toStartOf="@+id/imageViewTwitter"
+                app:layout_constraintStart_toEndOf="@+id/imageViewLinkedIn"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/imageViewTwitter"
+                style="@style/ImageShare"
+                android:src="@drawable/ic_twitter"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/imageViewFaceBook"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/buttonSubmit"
+            style="@style/AppTheme.AppButton.OrangeBackground"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="20sp"
+            android:text="@string/button_submit"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/layoutShare"
+            app:layout_constraintVertical_bias="0.78" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>
