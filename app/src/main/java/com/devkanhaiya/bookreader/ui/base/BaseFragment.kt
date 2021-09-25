@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.devkanhaiya.bookreader.core.AppPreferences
 import com.devkanhaiya.bookreader.di.HasComponent
 import com.devkanhaiya.bookreader.di.component.ActivityComponent
 import com.devkanhaiya.bookreader.di.component.FragmentComponent
@@ -20,6 +21,8 @@ import javax.inject.Inject
  * Created by hlink21 on 25/4/16.
  */
 abstract class BaseFragment : Fragment(), HasComponent<FragmentComponent> {
+    @Inject
+    lateinit var appPreferences: AppPreferences
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
@@ -47,7 +50,7 @@ abstract class BaseFragment : Fragment(), HasComponent<FragmentComponent> {
     }
 
     protected fun <C> getComponent(componentType: Class<C>): C {
-        return componentType.cast((activity as HasComponent<C>).component)
+        return componentType.cast((activity as HasComponent<C>).component)!!
     }
 
     override fun onAttach(context: Context) {

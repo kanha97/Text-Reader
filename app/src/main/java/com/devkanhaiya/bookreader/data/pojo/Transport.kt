@@ -5,7 +5,7 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 class Transport(
-    val id: String,
+    val text: String,
     val title: String,
     val description: String,
     val destinationDate: String,

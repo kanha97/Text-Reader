@@ -15,6 +15,7 @@ import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import com.devkanhaiya.bookreader.R
+import com.devkanhaiya.bookreader.core.AppPreferences
 import com.devkanhaiya.bookreader.di.HasComponent
 import com.devkanhaiya.bookreader.di.Injector
 import com.devkanhaiya.bookreader.di.component.ActivityComponent
@@ -30,6 +31,9 @@ abstract class BaseActivity : AppCompatActivity(), HasComponent<ActivityComponen
 
     @Inject
     lateinit var activityStarter: ActivityStarter
+
+    @Inject
+    lateinit var appPreferences: AppPreferences
 
     //protected var toolbar: Toolbar? = null
     //protected var toolbarTitle: AppCompatTextView? = null

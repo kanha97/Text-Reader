@@ -1,6 +1,7 @@
 package com.devkanhaiya.bookreader.ui.home.fragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.devkanhaiya.bookreader.R
@@ -12,6 +13,7 @@ import com.devkanhaiya.bookreader.ui.base.BaseFragment
 import com.devkanhaiya.bookreader.ui.home.HomeMainActivity
 import com.devkanhaiya.bookreader.ui.home.adapter.TransportAdapter
 import com.devkanhaiya.bookreader.ui.isolated.IsolatedActivity
+import kotlin.collections.ArrayList
 
 class HomeFragment : BaseFragment(), TransportAdapter.ClickListener {
 
@@ -35,19 +37,11 @@ class HomeFragment : BaseFragment(), TransportAdapter.ClickListener {
         setUpToolBar()
         setUpTransportRecyclerView()
     }
-
+    var list: ArrayList<Transport?>? = null
     private fun setUpTransportRecyclerView() {
-        val planeIcon = R.drawable.ic_plane
-        val busIcon = R.drawable.ic_bus_front
-        val shipIcon = R.drawable.ic_boat_with_containers
-        val trainIcon = R.drawable.ic_train
-        val list = arrayListOf(
-            Transport("123", "Book Name", "Page 2", "25/01/2021", ""),
-            Transport("123", "Book Name", "Page 2", "25/01/2021", ""),
-            Transport("123", "Book Name", "Page 2", "25/01/2021", ""),
-            Transport("123", "Book Name", "Page 2", "25/01/2021", "")
-        )
 
+        list = appPreferences.getArrayList(Const.TRANSPORT_DATA)
+        Log.d("TAG", "setUpTransportRecyclerView: ${list}")
         transportAdapter.setTransportList(list)
         binding!!.recyclerViewHome.apply {
             layoutManager = LinearLayoutManager(context)
@@ -68,12 +62,26 @@ class HomeFragment : BaseFragment(), TransportAdapter.ClickListener {
     override fun addOnClick(transport: Transport) {
         val bundle = Bundle()
         bundle.putParcelable(Const.TRANSPORT, transport)
-        navigator.loadActivity(IsolatedActivity::class.java,OrderDetailsFragment::class.java).addBundle(bundle).start()
+        navigator.loadActivity(IsolatedActivity::class.java, OrderDetailsFragment::class.java)
+            .addBundle(bundle).start()
+    }
+
+    override fun addOnDeleteClick(transport: ArrayList<Transport?>) {
+        appPreferences.saveArrayList(transport,Const.TRANSPORT_DATA)
+        transportAdapter.notifyDataSetChanged()
     }
 
     override fun onResume() {
         super.onResume()
         (activity as HomeMainActivity).showFloatingActionButton(true)
+    }
+
+    override fun onStart() {
+        val list = appPreferences.getArrayList(Const.TRANSPORT_DATA)
+
+        transportAdapter.setTransportList(list)
+
+        super.onStart()
     }
 
     override fun onDestroyView() {

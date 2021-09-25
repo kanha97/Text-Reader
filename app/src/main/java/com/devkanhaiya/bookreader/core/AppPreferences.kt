@@ -3,9 +3,13 @@ package com.devkanhaiya.bookreader.core
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.SharedPreferences
-
+import com.devkanhaiya.bookreader.data.pojo.Transport
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
+import java.lang.reflect.Type
 import javax.inject.Inject
 import javax.inject.Singleton
+import kotlin.collections.ArrayList
 
 /**
  * Created by hlink21 on 31/5/16.
@@ -17,7 +21,8 @@ constructor(context: Context) {
         const val SHARED_PREF_NAME = "app_preference"
     }
 
-    private val sharedPreferences: SharedPreferences = context.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE)
+    private val sharedPreferences: SharedPreferences =
+        context.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE)
 
 
     @SuppressLint("CommitPrefEdits")
@@ -40,7 +45,7 @@ constructor(context: Context) {
     }
 
     fun getString(name: String): String {
-        return sharedPreferences.getString(name, "")?:""
+        return sharedPreferences.getString(name, "") ?: ""
     }
 
 
@@ -58,8 +63,8 @@ constructor(context: Context) {
 
     fun clearAll() {
         sharedPreferences.edit()
-                .clear()
-                .apply()
+            .clear()
+            .apply()
     }
 
     fun putFloat(name: String, value: Float) {
@@ -72,4 +77,18 @@ constructor(context: Context) {
         return sharedPreferences.getFloat(name, 0f)
     }
 
+    fun saveArrayList(list: ArrayList<Transport?>, key: String?) {
+        val editor: SharedPreferences.Editor = sharedPreferences.edit()
+        val gson = Gson()
+        val json: String = gson.toJson(list)
+        editor.putString(key, json)
+        editor.apply()
+    }
+
+    fun getArrayList(key: String?): ArrayList<Transport?>? {
+        val gson = Gson()
+        val json: String? = sharedPreferences.getString(key, null)
+        val type: Type = object : TypeToken<ArrayList<Transport?>?>() {}.getType()
+        return gson.fromJson(json, type)
+    }
 }

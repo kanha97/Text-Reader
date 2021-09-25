@@ -1,31 +1,42 @@
 package com.devkanhaiya.bookreader.ui.home
 
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.content.Intent
+import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.View
+import android.widget.ArrayAdapter
 import androidx.annotation.RequiresApi
 import com.devkanhaiya.bookreader.R
-import com.devkanhaiya.bookreader.core.AppPreferences
 import com.devkanhaiya.bookreader.databinding.DialogImageSelectionBinding
 import com.devkanhaiya.bookreader.databinding.HomeMainActivityBinding
 import com.devkanhaiya.bookreader.di.component.ActivityComponent
 import com.devkanhaiya.bookreader.ui.Const
 import com.devkanhaiya.bookreader.ui.base.BaseActivity
-import com.devkanhaiya.bookreader.ui.home.fragment.*
+import com.devkanhaiya.bookreader.ui.home.fragment.EditTextRecogniserFragment
+import com.devkanhaiya.bookreader.ui.home.fragment.HomeFragment
+import com.devkanhaiya.bookreader.ui.home.fragment.SettingsFragment
+import com.devkanhaiya.bookreader.ui.isolated.IsolatedActivity
 import com.devkanhaiya.bookreader.util.FilePickUtils
 import com.google.android.material.bottomsheet.BottomSheetDialog
-import kotlinx.android.synthetic.main.home_header_layout.view.*
+import com.google.mlkit.vision.common.InputImage
+import com.google.mlkit.vision.text.TextRecognition
+import com.google.mlkit.vision.text.TextRecognizer
+import com.google.mlkit.vision.text.devanagari.DevanagariTextRecognizerOptions
+import com.google.mlkit.vision.text.latin.TextRecognizerOptions
 import kotlinx.android.synthetic.main.home_main_activity.*
-import javax.inject.Inject
+
 
 class HomeMainActivity : BaseActivity(), View.OnClickListener {
 
     lateinit var binding: HomeMainActivityBinding
     private var filePickUtils: FilePickUtils? = null
-
+    var recognizer: TextRecognizer=TextRecognition.getClient(TextRecognizerOptions.DEFAULT_OPTIONS)
 
     private lateinit var mImageSelectionDialog: BottomSheetDialog
     lateinit var dialogImageSelectionBinding: DialogImageSelectionBinding
@@ -34,13 +45,110 @@ class HomeMainActivity : BaseActivity(), View.OnClickListener {
     private val mOnFileChoose = object : FilePickUtils.OnFileChoose {
         override fun onFileChoose(fileUri: String, requestCode: Int) {
             imagesPath = fileUri
-            // AppUtil.loadImages(context!!, fileUri, binding!!.imageViewProfilePicture)
+
+//            val textRecognizer = TextRecognizer.Builder(applicationContext).build()
+            //val recognizer = TextRecognition.getClient(TextRecognizerOptions.DEFAULT_OPTIONS)
+           // val recognizer: TextRecognizer = TextRecognition.getClient(DevanagariTextRecognizerOptions.Builder().build())
+
+
+        askLanguageDetection()
+
+
+            /*val imageFrame = Frame.Builder()
+                .setBitmap(BitmapFactory.decodeFile(imagesPath)) // your image bitmap
+                .build()
+            */
+            //   binding.imageView.setImageBitmap(BitmapFactory.decodeFile(imagesPath))
+
+            /* val textBlocks = textRecognizer.detect(imageFrame)
+
+             for (i in 0 until textBlocks.size()) {
+                 val textBlock = textBlocks[textBlocks.keyAt(i)]
+                 imageText = imageText + " " + textBlock.value // return string
+             }*/
         }
     }
 
+    private fun askLanguageDetection() {
 
-    @Inject
-    lateinit var appPreferences: AppPreferences
+        val builderSingle: AlertDialog.Builder = AlertDialog.Builder(this)
+        builderSingle.setIcon(R.mipmap.ic_launcher)
+        builderSingle.setTitle("Select language to detect from image : ")
+
+        val arrayAdapter =
+            ArrayAdapter<String>(this, android.R.layout.select_dialog_singlechoice)
+        arrayAdapter.add("English")
+        arrayAdapter.add("Hindi")
+        arrayAdapter.add("Marathi")
+
+        builderSingle.setNegativeButton("cancel",
+            DialogInterface.OnClickListener { dialog, which -> dialog.dismiss() })
+
+        builderSingle.setAdapter(arrayAdapter,
+            DialogInterface.OnClickListener { dialog, which ->
+                val strName = arrayAdapter.getItem(which)
+                val builderInner: AlertDialog.Builder = AlertDialog.Builder(this)
+                builderInner.setMessage(strName)
+                builderInner.setTitle("Your Selected Language  is")
+                if (which==0){
+                     recognizer = TextRecognition.getClient(TextRecognizerOptions.DEFAULT_OPTIONS)
+                }else{
+                    recognizer = TextRecognition.getClient(DevanagariTextRecognizerOptions.Builder().build())
+                }
+                builderInner.setPositiveButton("Ok",
+                    DialogInterface.OnClickListener { dialog, which ->
+                        recognizeText()
+                        dialog.dismiss() })
+                builderInner.show()
+            })
+        builderSingle.show()
+
+    }
+
+    fun recognizeText(){
+    var imageText = ""
+    val image = InputImage.fromBitmap(BitmapFactory.decodeFile(imagesPath), 0)
+
+    val result = recognizer
+        .process(image)
+        .addOnSuccessListener { visionText ->
+            val resultText = visionText.text
+            for (block in visionText.textBlocks) {
+                val blockText = block.text
+                val blockCornerPoints = block.cornerPoints
+                val blockFrame = block.boundingBox
+
+                for (line in block.lines) {
+                    val lineText = line.text
+                    val lineCornerPoints = line.cornerPoints
+                    val lineFrame = line.boundingBox
+                    for (element in line.elements) {
+                        val elementText = element.text
+                        val elementCornerPoints = element.cornerPoints
+                        val elementFrame = element.boundingBox
+                        Log.d("TAG", "onFileChoose:element ${element.text} ")
+                        Log.d("TAG", "onFileChoose:line ${line.text} ")
+                        Log.d("TAG", "onFileChoose:block ${block.text} ")
+                    }
+                }
+            }
+            imageText=resultText
+            Log.d("TAG", "onFileChoose:block ${imageText} ")
+
+            loadActivity(
+                IsolatedActivity::class.java,
+                EditTextRecogniserFragment::class.java
+            ).addBundle(Bundle().apply {
+                putString(Const.RECOGNIZED_TEXT, imageText)
+                putString(Const.DIRECTORY_DATA, imagesPath)
+            }).forResult(10001).start()
+        }
+        .addOnFailureListener { e ->
+            // Task failed with an exception
+            // ...
+        }
+
+}
 
     override fun findFragmentPlaceHolder(): Int = R.id.placeHolder
 
@@ -156,22 +264,29 @@ class HomeMainActivity : BaseActivity(), View.OnClickListener {
         }
 
     }
+
+
     ///edit profile
     private fun showImageSelectionDialog() {
 
-            dialogImageSelectionBinding = DialogImageSelectionBinding.inflate(layoutInflater)
-            mImageSelectionDialog.setContentView(dialogImageSelectionBinding.root)
+        dialogImageSelectionBinding = DialogImageSelectionBinding.inflate(layoutInflater)
+        mImageSelectionDialog.setContentView(dialogImageSelectionBinding.root)
 
-            dialogImageSelectionBinding.tvSelectCamera.setOnClickListener(this)
-            dialogImageSelectionBinding.tvSelectGallery.setOnClickListener(this)
-            mImageSelectionDialog.show()
-
+        dialogImageSelectionBinding.tvSelectCamera.setOnClickListener(this)
+        dialogImageSelectionBinding.tvSelectGallery.setOnClickListener(this)
+        mImageSelectionDialog.show()
 
 
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, intent: Intent?) {
         super.onActivityResult(requestCode, resultCode, intent)
+        if (intent != null) {
+            if (intent.getIntExtra(Const.ADDED_NEW_VALUE, 0) == 1) {
+                load(HomeFragment::class.java).clearHistory(HomeFragment::class.java.simpleName)
+                    .replace(false)
+            }
+        }
         filePickUtils?.onActivityResult(requestCode, resultCode, intent)
     }
 

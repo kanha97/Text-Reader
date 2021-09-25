@@ -41,8 +41,6 @@ class SettingsFragment : BaseFragment(), SettingsAdapter.ClickListener {
         settingsAdapter.setNotification(appPreference.getBoolean(Const.SETTINGS_NOTIFICATION))
         toolbar.showToolbar(true)
         toolbar.setToolbarTitle(getString(R.string.title_settings))
-
-                (activity as HomeMainActivity).showBackSymbol(true)
     }
 
     private fun setUpRecyclerView() {

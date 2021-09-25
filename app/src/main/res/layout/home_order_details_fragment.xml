@@ -9,12 +9,41 @@
         android:layout_height="match_parent">
 
         <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imageViewPhoto"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:scaleType="centerCrop"
+            android:layout_height="200dp"
             android:src="@drawable/header_image"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/ivStop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Stop"
+            android:gravity="center"
+            android:textColor="@color/colorDarkOrange"
+            android:drawableTint="@color/colorDarkOrange"
+            android:textSize="25sp"
+            android:drawableStart="@android:drawable/ic_lock_power_off"
+            app:layout_constraintTop_toBottomOf="@id/imageViewPhoto"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            />
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Stop"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textColor="@android:color/black"
+            android:textSize="25sp"
+            app:layout_constraintTop_toBottomOf="@id/ivStop"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>

@@ -26,5 +26,6 @@ interface FragmentComponent {
     fun inject(faQsFragment: FAQsFragment)
     fun inject(aboutUsFragment: AboutUsFragment)
     fun inject(orderDetailsFragment: OrderDetailsFragment)
+    fun inject(editTextRecogniserFragment: EditTextRecogniserFragment)
     //   fun inject(loginFragment: LoginFragment)
 }

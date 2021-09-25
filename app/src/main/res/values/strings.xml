@@ -103,6 +103,7 @@
     <string name="spannable_shipper_ref">Shipper Ref : %1$s</string>
     <string name="spannable_current_status">Current status : %1$s</string>
     <string name="title_about_us">About Us</string>
+    <string name="title_text_recognize">Image Text Recognized</string>
     <string name="title_list_of_acc_open_jobs">List of Account Open Jobs</string>
     <string name="dummy_initilized">Initiated</string>
     <string name="validation_current_password">Please enter current password</string>

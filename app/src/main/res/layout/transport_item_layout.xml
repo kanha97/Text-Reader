@@ -15,6 +15,18 @@
         android:background="@color/colorTransportBack">
 
         <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imageViewBack"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:foreground="#8BAC654E"
+            android:scaleType="centerCrop"
+            android:src="@drawable/image_document"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/imageViewTransport"
             android:layout_width="55dp"
             android:layout_height="55dp"
@@ -41,23 +53,26 @@
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/textViewBoarding"
-            style="@style/AppTheme.AppTextView.TextBlackInterMedium12.Board"
+            style="@style/AppTheme.AppTextView.Black.InterBold.18"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:text="@string/ahemdabad"
             android:textAlignment="textStart"
+            android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/textViewTransportId"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/imageViewTransport"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/textViewTransportId"
-            style="@style/AppTheme.AppTextView.TransportTextPoppins"
+            style="@style/AppTheme.AppTextView.Black.InterSemi16"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:ellipsize="marquee"
+            android:lines="1"
             android:textAlignment="textStart"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/textViewDate"
@@ -67,7 +82,7 @@
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/textViewDate"
-            style="@style/AppTheme.AppTextView.TransportTextPoppins"
+            style="@style/AppTheme.AppTextView.Black.InterSemi16"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="10dp"
@@ -75,5 +90,16 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/textViewTransportId"
             tools:text=" ETD POL" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/iv_delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:tint="@android:color/holo_red_dark"
+            android:src="@android:drawable/ic_menu_delete"
+            app:layout_constraintBottom_toTopOf="@id/textViewTransportId"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

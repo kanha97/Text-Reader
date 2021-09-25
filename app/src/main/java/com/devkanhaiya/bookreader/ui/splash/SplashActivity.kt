@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.view.View
-import android.view.WindowInsets.Type.statusBars
 import com.devkanhaiya.bookreader.R
 import com.devkanhaiya.bookreader.core.AppPreferences
 import com.devkanhaiya.bookreader.databinding.SplashActivityBinding
@@ -16,9 +15,6 @@ import javax.inject.Inject
 class SplashActivity : BaseActivity() {
 
     lateinit var binding: SplashActivityBinding
-
-    @Inject
-    lateinit var appPreferences: AppPreferences
 
     override fun findFragmentPlaceHolder(): Int = 0
 
