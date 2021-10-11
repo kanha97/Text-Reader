@@ -24,14 +24,14 @@ class TransportAdapter(private val listener: ClickListener) :
         }
 
         override fun onClick(v: View?) {
-            when(v){
-                binding.ivDelete->{
+            when (v) {
+                binding.ivDelete -> {
                     transportList.remove(transportList[adapterPosition])
                     notifyDataSetChanged()
-                     listener.addOnDeleteClick(transportList)
+                    listener.addOnDeleteClick(transportList)
 
                 }
-                binding.cardViewTransportItem->{
+                binding.cardViewTransportItem -> {
                     transportList[adapterPosition]?.let { listener.addOnClick(it) }
 
                 }
@@ -61,6 +61,11 @@ class TransportAdapter(private val listener: ClickListener) :
         if (list != null) {
             transportList = list
         }
+    }
+
+    fun addTransport(list: Transport?) {
+        transportList.add(list)
+        notifyDataSetChanged()
     }
 
     interface ClickListener {

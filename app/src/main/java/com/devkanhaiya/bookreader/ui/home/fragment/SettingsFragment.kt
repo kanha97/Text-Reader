@@ -45,14 +45,9 @@ class SettingsFragment : BaseFragment(), SettingsAdapter.ClickListener {
 
     private fun setUpRecyclerView() {
         list = arrayListOf(
-            getString(R.string.label_change_password),
-            getString(R.string.title_notification),
-            getString(R.string.setting_view_right),
             getString(R.string.title_about_us),
             getString(R.string.title_contact_us),
-            getString(R.string.title_terms_condition),
             getString(R.string.title_privacy_policy),
-            getString(R.string.title_faqs),
             getString(R.string.title_rate_app),
             getString(R.string.title_share_app)
         )
@@ -69,54 +64,28 @@ class SettingsFragment : BaseFragment(), SettingsAdapter.ClickListener {
     override fun addOnClick(position: Int) {
         when (position) {
             0 -> {
-                navigator.loadActivity(
-                    IsolatedActivity::class.java,
-                    ChangePasswordFragment::class.java
-                ).start()
-            }
-
-            1 -> {
-                appPreference.putBoolean(
-                    Const.SETTINGS_NOTIFICATION,
-                    settingsAdapter.getNotification()
-                )
-            }
-            3 -> {
                 navigator.loadActivity(IsolatedActivity::class.java, AboutUsFragment::class.java)
                     .start()
             }
-            4 -> {
+
+            1 -> {
                 navigator.loadActivity(IsolatedActivity::class.java, GetInTouchFragment::class.java)
                     .start()
+
             }
-            5 -> {
-                navigator.loadActivity(
-                    IsolatedActivity::class.java,
-                    TermsNConditionsFragment::class.java
-                ).start()
-            }
-            6 -> {
+            2 -> {
                 navigator.loadActivity(
                     IsolatedActivity::class.java,
                     PrivacyNPolicyFragment::class.java
                 ).start()
             }
-            7 -> {
-                navigator.loadActivity(IsolatedActivity::class.java, FAQsFragment::class.java)
-                    .start()
-            }
-            8 -> {
-                ///dummy
-                Toast.makeText(context, getString(R.string.title_rate_app), Toast.LENGTH_SHORT)
-                    .show()
+            3 -> {
 
             }
-            9 -> {
-                ////dummy
-                Toast.makeText(context, getString(R.string.title_share_app), Toast.LENGTH_SHORT)
-                    .show()
+            4 -> {
 
             }
+
         }
     }
 

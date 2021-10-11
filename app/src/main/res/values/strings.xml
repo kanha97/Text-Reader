@@ -1,5 +1,19 @@
 <resources>
     <string name="app_name">Book Reader</string>
+
+
+    <string name="banner_id">ca-app-pub-1340962408919470/4865622440</string>
+    <string name="intertitial_id">ca-app-pub-1340962408919470/2702509448</string>
+    <string name="native_id">ca-app-pub-1340962408919470/5216976230</string>
+
+
+
+
+
+
+
+
+
     <string name="label_welcome">Welcome!</string>
     <string name="label_then_you_should_sign_in_nwe_promise_you_won_t_regret_this">Then you should sign in. \nWe promise you won\'t regret this!</string>
     <string name="button_signin">SignIn</string>
@@ -132,9 +146,33 @@
     <string name="label_book_reader_subtitle">Get Advanced\n Read Your Book with technology</string>
     <string name="title_settings">Settings</string>
 
+    <string name="app_updated" translatable="false">App updated</string>
+    <string name="app_started" translatable="false">App update started</string>
+    <string name="app_cancelled" translatable="false">App update cancelled</string>
+    <string name="app_updated_failed" translatable="false">App update failed</string>
+    <string name="app_update_title" translatable="false">App Update</string>
+    <string name="app_update_message" translatable="false">Application successfully updated! You need to restart the app in order to use this new features.</string>
+    <string name="action_restart" translatable="false">Restart</string>
 
     <string name="label_please_select_image">Please select image</string>
     <string name="label_gallery">Gallery</string>
     <string name="label_camera">Camera</string>
+    <string name="text_not_available">Text Not Available</string>
+    <string name="title_to_file">Title to File</string>
+    <string name="description_eg_page_no">Description (eg. page no)</string>
+    <string name="submit_to_speech">Submit to Speech</string>
+    <string name="translate">translate</string>
+    <string name="professional_android_developer">Professional Android Developer</string>
+    <string name="android_developer_kanhaiya">Android Developer Kanhaiya</string>
+    <string name="stop">Stop</string>
+    <string name="detect_image">\"Select language to detect from image : \"</string>
+    <string name="selected_language">Your Selected Language  is</string>
+    <string name="english">English</string>
+    <string name="hindi">Hindi</string>
+    <string name="marathi">Marathi</string>
+    <string name="cancel">cancel</string>
+    <string name="ok">Ok</string>
+    <string name="select_translate_language">\"Select language to Translate : \"</string>
+    <string name="confirm_translate_language">Confirm Translate Language  is</string>
 
 </resources>

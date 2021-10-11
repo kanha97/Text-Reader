@@ -5,26 +5,35 @@
     android:layout_height="match_parent"
     android:background="@android:color/black">
 
+    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/ic_book"
+        app:layout_constraintBottom_toTopOf="@id/textViewSplash"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/textViewSplash"
+        style="@style/AppTheme.AppTextView.Black.InterBold.28"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        style="@style/AppTheme.AppTextView.Black.InterBold.28"
         android:text="@string/label_book_reader"
         android:textColor="@color/colorPrimary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/textViewSplash_subtitle"
+        style="@style/AppTheme.AppTextView.Black.InterBold.grey14"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        style="@style/AppTheme.AppTextView.Black.InterBold.grey14"
         android:text="@string/label_book_reader_subtitle"
-        app:layout_constraintVertical_bias="0.05"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textViewSplash"/>
+        app:layout_constraintTop_toBottomOf="@id/textViewSplash"
+        app:layout_constraintVertical_bias="0.05" />
 </androidx.constraintlayout.widget.ConstraintLayout>

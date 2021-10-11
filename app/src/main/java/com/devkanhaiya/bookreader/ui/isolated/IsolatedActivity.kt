@@ -9,6 +9,7 @@ import com.devkanhaiya.bookreader.di.component.ActivityComponent
 import com.devkanhaiya.bookreader.ui.base.BaseActivity
 import com.devkanhaiya.bookreader.ui.base.BaseFragment
 import com.devkanhaiya.bookreader.ui.manager.ActivityStarter
+import com.google.android.gms.ads.AdRequest
 
 class IsolatedActivity : BaseActivity(), View.OnClickListener {
     lateinit var binding: IsolatedActivityBinding
@@ -35,7 +36,8 @@ class IsolatedActivity : BaseActivity(), View.OnClickListener {
         binding.imageViewButtonBack.setOnClickListener(this)
 
         window.statusBarColor = Color.WHITE
-
+        val adRequest = AdRequest.Builder().build();
+        binding.adView.loadAd(adRequest)
         if (savedInstanceState == null) {
 
             val page =

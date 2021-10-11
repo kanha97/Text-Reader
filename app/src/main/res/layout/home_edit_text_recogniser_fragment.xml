@@ -14,7 +14,7 @@
             android:id="@+id/editTextTextRecogniser"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:hint="Text Not Available"
+            android:hint="@string/text_not_available"
             android:minLines="3"
             android:padding="30dp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -23,26 +23,34 @@
             tools:text="Hello Hello Hello Hello vHelloHello Hello Hello
             " />
 
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnTranslate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@android:color/holo_blue_dark"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:text="@string/translate" />
+
         <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/editTextTitle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:hint="Title to File"
+            android:hint="@string/title_to_file"
             android:maxLines="1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editTextTextRecogniser"
-           />
+            app:layout_constraintTop_toBottomOf="@+id/editTextTextRecogniser" />
 
         <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/editTextDescription"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:hint="Description (eg. page no)"
+            android:hint="@string/description_eg_page_no"
             android:maxLines="1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editTextTitle"/>
+            app:layout_constraintTop_toBottomOf="@+id/editTextTitle" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/buttonSubmit"
@@ -50,7 +58,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:background="@drawable/bg_button_corner"
-            android:text="Submit to Speech"
+            android:text="@string/submit_to_speech"
             android:textColor="@android:color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/imageViewSpeak"

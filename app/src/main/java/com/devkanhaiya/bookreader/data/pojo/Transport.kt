@@ -9,6 +9,7 @@ class Transport(
     val title: String,
     val description: String,
     val destinationDate: String,
-    val directory: String
+    val directory: String,
+    val language: Int
 
 ) : Parcelable

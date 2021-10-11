@@ -12,8 +12,8 @@
         android:id="@+id/appbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:elevation="5dp"
         android:backgroundTint="@color/colorLightBlue"
+        app:elevation="5dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -72,10 +72,10 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_height="0dp"
         android:layout_width="match_parent"
-        android:src="@color/colorLightBlue"
+        android:layout_height="0dp"
         android:elevation="0dp"
+        android:src="@color/colorLightBlue"
         app:layout_constraintBottom_toTopOf="@+id/navigationView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -94,7 +94,7 @@
         android:id="@+id/floatingActionButtonWhatsApp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
+        android:layout_marginEnd="36dp"
         android:contentDescription="@string/label_what_s_app"
         android:foreground="@drawable/ic_whatsapp"
         app:layout_constraintBottom_toTopOf="@id/navigationView"
@@ -118,9 +118,21 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:itemIconSize="18dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/adView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/activity_home" />
+
+    <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/adView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        ads:adSize="BANNER"
+        ads:adUnitId="@string/banner_id"
+        ads:layout_constraintBottom_toBottomOf="parent"
+        ads:layout_constraintEnd_toEndOf="parent"
+        ads:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
 

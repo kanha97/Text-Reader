@@ -1,6 +1,7 @@
 package com.devkanhaiya.bookreader.ui
 
 object Const {
+    const val LANGUAGE_DETECT= "language deltect"
     const val DIRECTORY_DATA="directory data"
     const val TRANSPORT_DATA = "transport data"
     const val RECOGNIZED_TEXT = "recognized text"

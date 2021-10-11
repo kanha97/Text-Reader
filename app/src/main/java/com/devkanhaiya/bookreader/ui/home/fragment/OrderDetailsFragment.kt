@@ -1,5 +1,6 @@
 package com.devkanhaiya.bookreader.ui.home.fragment
 
+import android.graphics.drawable.ColorDrawable
 import android.speech.tts.TextToSpeech
 import android.util.Log
 import android.view.View
@@ -11,14 +12,18 @@ import com.devkanhaiya.bookreader.ui.Const
 import com.devkanhaiya.bookreader.ui.base.BaseFragment
 import com.devkanhaiya.bookreader.ui.isolated.IsolatedActivity
 import com.ewayapp.util.AppUtil
+import com.google.android.ads.nativetemplates.NativeTemplateStyle
+import com.google.android.gms.ads.AdLoader
+import com.google.android.gms.ads.admanager.AdManagerAdRequest
 import java.util.*
+
 
 class OrderDetailsFragment : BaseFragment() {
 
     var binding: HomeOrderDetailsFragmentBinding? = null
     var textToSpeech: TextToSpeech? = null
     var text: String? = null
-
+    var transport: Transport? = null
 
     override fun createLayout(): Int = R.layout.home_order_details_fragment
 
@@ -31,8 +36,22 @@ class OrderDetailsFragment : BaseFragment() {
     }
 
     override fun bindData() {
+        val adLoader: AdLoader =
+            AdLoader.Builder(requireContext(), requireContext().getString(R.string.native_id))
+                .forNativeAd { nativeAd ->
+                    val styles =
+                        NativeTemplateStyle.Builder()
+                            .withMainBackgroundColor(ColorDrawable(requireContext().getColor(R.color.gnt_white)))
+                            .build()
+                    binding?.myTemplate?.setStyles(styles)
+                    binding?.myTemplate?.setNativeAd(nativeAd)
+                }
+                .build()
+
+        adLoader.loadAd(AdManagerAdRequest.Builder().build())
+
         setUpToolBar()
-        val transport = arguments?.getParcelable<Transport>(Const.TRANSPORT)
+        transport = arguments?.getParcelable<Transport>(Const.TRANSPORT)
         transport?.directory?.let {
             AppUtil.loadImages(
                 requireContext(),
@@ -51,6 +70,7 @@ class OrderDetailsFragment : BaseFragment() {
             }
             navigator.goBack()
         }
+
     }
 
 
@@ -71,6 +91,7 @@ class OrderDetailsFragment : BaseFragment() {
         }
         super.onPause()
     }
+
     override fun onDestroyView() {
         super.onDestroyView()
 
@@ -79,7 +100,22 @@ class OrderDetailsFragment : BaseFragment() {
     private fun convertText() {
         textToSpeech = TextToSpeech(requireContext(), TextToSpeech.OnInitListener() {
             if (it === TextToSpeech.SUCCESS) {
-                val result: Int? = textToSpeech?.setLanguage(Locale.US)
+                val result: Int? = when (transport?.language) {
+                    0 -> {
+                        textToSpeech?.setLanguage(Locale("en", "IN"))
+                    }
+                    1 -> {
+                        textToSpeech?.setLanguage(Locale("hi", "IN"))
+
+                    }
+                    2 -> {
+                        textToSpeech?.setLanguage(Locale("mr_IN"))
+
+                    }
+                    else -> textToSpeech?.setLanguage(Locale("en", "IN"))
+
+
+                }
                 if (result == TextToSpeech.LANG_MISSING_DATA ||
                     result == TextToSpeech.LANG_NOT_SUPPORTED
                 ) {
