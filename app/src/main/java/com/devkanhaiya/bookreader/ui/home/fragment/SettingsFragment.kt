@@ -1,7 +1,8 @@
 package com.devkanhaiya.bookreader.ui.home.fragment
 
+import android.content.Intent
+import android.net.Uri
 import android.view.View
-import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.devkanhaiya.bookreader.R
 import com.devkanhaiya.bookreader.core.AppPreferences
@@ -13,6 +14,7 @@ import com.devkanhaiya.bookreader.ui.home.HomeMainActivity
 import com.devkanhaiya.bookreader.ui.home.adapter.SettingsAdapter
 import com.devkanhaiya.bookreader.ui.isolated.IsolatedActivity
 import javax.inject.Inject
+
 
 class SettingsFragment : BaseFragment(), SettingsAdapter.ClickListener {
     var binding: HomeSettingsFragmentBinding? = null
@@ -69,8 +71,13 @@ class SettingsFragment : BaseFragment(), SettingsAdapter.ClickListener {
             }
 
             1 -> {
-                navigator.loadActivity(IsolatedActivity::class.java, GetInTouchFragment::class.java)
-                    .start()
+              /*  navigator.loadActivity(IsolatedActivity::class.java, GetInTouchFragment::class.java)
+                    .start()*/
+                val intent = Intent(
+                    Intent.ACTION_VIEW,
+                    Uri.parse("https://chat.whatsapp.com/DX1l1OkEy9jGzBh52OyydI")
+                )
+                startActivity(intent)
 
             }
             2 -> {
@@ -80,12 +87,37 @@ class SettingsFragment : BaseFragment(), SettingsAdapter.ClickListener {
                 ).start()
             }
             3 -> {
-
+                rateApp()
             }
             4 -> {
-
+                shareApp()
             }
 
+        }
+    }
+
+    fun rateApp() {
+        val url = "https://play.google.com/store/apps/details?id=com.devkanhaiya.bookreader"
+        val intent = Intent(Intent.ACTION_VIEW)
+        intent.data = Uri.parse(url)
+        startActivity(intent)
+    }
+    fun shareApp() {
+        try {
+            val shareIntent = Intent(Intent.ACTION_SEND)
+            shareIntent.type = "text/plain"
+            shareIntent.putExtra(Intent.EXTRA_SUBJECT, "Booker Reader")
+            var shareMessage = "\nLet me recommend you this Cool application , It will help you read Images Text\n\n"
+            shareMessage =
+                """
+                ${shareMessage}https://play.google.com/store/apps/details?id=com.devkanhaiya.bookreader}
+                
+                
+                """.trimIndent()
+            shareIntent.putExtra(Intent.EXTRA_TEXT, shareMessage)
+            startActivity(Intent.createChooser(shareIntent, "choose one"))
+        } catch (e: Exception) {
+            //e.toString();
         }
     }
 

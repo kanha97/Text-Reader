@@ -4,12 +4,12 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.SharedPreferences
 import com.devkanhaiya.bookreader.data.pojo.Transport
+import com.devkanhaiya.bookreader.ui.Const
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import java.lang.reflect.Type
 import javax.inject.Inject
 import javax.inject.Singleton
-import kotlin.collections.ArrayList
 
 /**
  * Created by hlink21 on 31/5/16.
@@ -42,6 +42,14 @@ constructor(context: Context) {
 
     fun getBoolean(name: String): Boolean {
         return sharedPreferences.getBoolean(name, false)
+    }
+
+    fun firstLogin(): Boolean {
+        return sharedPreferences.getBoolean(Const.LOG_IN_FIRST, true)
+    }
+
+    fun firstLoginStories(): Boolean {
+        return sharedPreferences.getBoolean(Const.LOG_IN_FIRST_STORIES, true)
     }
 
     fun getString(name: String): String {

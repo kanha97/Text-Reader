@@ -95,56 +95,6 @@
                 android:singleLine="false" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/layoutShare"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textInputLayoutWriteMsg">
-
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/imageViewWhatsApp"
-                style="@style/ImageShare"
-                android:src="@drawable/ic_whatsapp"
-                app:layout_constraintEnd_toStartOf="@+id/imageViewInstagram"
-                app:layout_constraintHorizontal_chainStyle="packed"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/imageViewInstagram"
-                style="@style/ImageShare"
-                android:src="@drawable/ic_instagram"
-                app:layout_constraintEnd_toStartOf="@+id/imageViewLinkedIn"
-                app:layout_constraintStart_toEndOf="@+id/imageViewWhatsApp"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/imageViewLinkedIn"
-                style="@style/ImageShare"
-                android:src="@drawable/ic_linkedin"
-                app:layout_constraintEnd_toStartOf="@+id/imageViewFaceBook"
-                app:layout_constraintStart_toEndOf="@+id/imageViewInstagram"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/imageViewFaceBook"
-                style="@style/ImageShare"
-                android:src="@drawable/ic_facebook"
-                app:layout_constraintEnd_toStartOf="@+id/imageViewTwitter"
-                app:layout_constraintStart_toEndOf="@+id/imageViewLinkedIn"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/imageViewTwitter"
-                style="@style/ImageShare"
-                android:src="@drawable/ic_twitter"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/imageViewFaceBook"
-                app:layout_constraintTop_toTopOf="parent" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/buttonSubmit"
@@ -156,7 +106,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/layoutShare"
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayoutWriteMsg"
             app:layout_constraintVertical_bias="0.78" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>

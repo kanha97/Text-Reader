@@ -10,6 +10,8 @@ object Const {
     const val VIEW_RIGHT = 2
     const val SETTINGS_NOTIFICATION = "notification"
     const val LOG = "log"
+    const val LOG_IN_FIRST = "log in first"
+    const val LOG_IN_FIRST_STORIES = "log in first"
     const val TRANSPORT = "transport"
     const val ADDED_NEW_VALUE = "added new list"
 

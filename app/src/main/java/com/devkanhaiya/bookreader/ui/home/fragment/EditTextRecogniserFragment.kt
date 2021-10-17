@@ -4,7 +4,6 @@ import android.app.Activity
 import android.app.AlertDialog
 import android.content.DialogInterface
 import android.content.Intent
-import android.os.SystemClock
 import android.speech.tts.TextToSpeech
 import android.util.Log
 import android.view.View
@@ -19,6 +18,7 @@ import com.devkanhaiya.bookreader.ui.isolated.IsolatedActivity
 import com.google.firebase.ml.naturallanguage.FirebaseNaturalLanguage
 import com.google.firebase.ml.naturallanguage.translate.FirebaseTranslateLanguage
 import com.google.firebase.ml.naturallanguage.translate.FirebaseTranslatorOptions
+import uk.co.samuelwall.materialtaptargetprompt.MaterialTapTargetPrompt
 import java.util.*
 
 class EditTextRecogniserFragment : BaseFragment(), View.OnClickListener {
@@ -45,7 +45,7 @@ class EditTextRecogniserFragment : BaseFragment(), View.OnClickListener {
         val imageText = arguments?.getString(Const.RECOGNIZED_TEXT)
         text = imageText
         binding?.editTextTextRecogniser?.setText(imageText)
-        if (!imageText.isNullOrEmpty()){
+        if (!imageText.isNullOrEmpty()) {
             val title = imageText.split(" ")
             binding?.editTextTitle?.setText(title[0])
             binding?.editTextDescription?.setText(title[0])
@@ -54,6 +54,26 @@ class EditTextRecogniserFragment : BaseFragment(), View.OnClickListener {
         binding?.buttonSubmit?.setOnClickListener(this)
         binding?.imageViewSpeak?.setOnClickListener(this)
         binding?.btnTranslate?.setOnClickListener(this)
+        showTutorial()
+    }
+
+    private fun showTutorial() {
+
+        if (!appPreferences.getBoolean(Const.LOG_IN_FIRST)) {
+
+            MaterialTapTargetPrompt.Builder(requireActivity())
+                .setTarget(binding?.editTextTitle)
+                .setPrimaryText("Title")
+                .setSecondaryText("Enter Title")
+                .setPromptStateChangeListener { prompt, state ->
+                    if (state == MaterialTapTargetPrompt.STATE_FOCAL_PRESSED) {
+                        appPreferences.putBoolean(Const.LOG_IN_FIRST, true)
+                        appPreferences.putBoolean(Const.LOG_IN_FIRST_STORIES, true)
+
+                    }
+                }.show()
+
+        }
     }
 
     override fun destroyViewBinding() {
@@ -69,7 +89,7 @@ class EditTextRecogniserFragment : BaseFragment(), View.OnClickListener {
                     .toString() + "/" + Calendar.getInstance().get(Calendar.MONTH)
                     .toString() + "/" + Calendar.getInstance().get(Calendar.YEAR)
                     .toString()
-
+                hideKeyBoard()
                 if (binding?.editTextTextRecogniser?.text?.isBlank() == true) {
                     showError("Text Not Available...Please add text first ,Roshan")
                     Log.d("TAG", "onClick: Text Not Available...Please add text first ,Roshan")
@@ -96,24 +116,26 @@ class EditTextRecogniserFragment : BaseFragment(), View.OnClickListener {
                             it
                         )
                     }
-                    Log.d("TAG", "onClick: $date")
-                }
-                val listing: ArrayList<Transport?>? =
-                    appPreferences.getArrayList(Const.TRANSPORT_DATA)
-                listing?.forEach {
-                    if (it != null) {
-                        list.add(it)
-                    }
-                }
-                appPreferences.saveArrayList(
-                    list, Const.TRANSPORT_DATA
-                )
-                SystemClock.sleep(1000)
-                val resultIntent = Intent()
 
-                resultIntent.putExtra(Const.ADDED_NEW_VALUE, 1)
-                requireActivity().setResult(Activity.RESULT_OK, resultIntent)
-                navigator.finish()
+                    val listing: ArrayList<Transport?>? =
+                        appPreferences.getArrayList(Const.TRANSPORT_DATA)
+
+                    listing?.forEach {
+                        if (it != null) {
+                            list.add(it)
+                        }
+                    }
+                    appPreferences.saveArrayList(
+                        list, Const.TRANSPORT_DATA
+                    )
+
+                    val resultIntent = Intent()
+                    resultIntent.putExtra(Const.ADDED_NEW_VALUE, 1)
+                    requireActivity().setResult(Activity.RESULT_OK, resultIntent)
+                    navigator.finish()
+                }
+
+
             }
 
             binding?.imageViewSpeak -> {
@@ -252,12 +274,14 @@ class EditTextRecogniserFragment : BaseFragment(), View.OnClickListener {
             textToSpeech?.shutdown();
         }
     }
+
     private fun convertText() {
         textToSpeech = TextToSpeech(requireContext(), TextToSpeech.OnInitListener() {
             if (it === TextToSpeech.SUCCESS) {
                 val result: Int? = when (currentLanguageNumber) {
                     0 -> {
-                        textToSpeech?.setLanguage(Locale("en","IN"))                    }
+                        textToSpeech?.setLanguage(Locale("en", "IN"))
+                    }
                     1 -> {
                         textToSpeech?.setLanguage(Locale("hi", "IN"))
 
@@ -266,7 +290,7 @@ class EditTextRecogniserFragment : BaseFragment(), View.OnClickListener {
                         textToSpeech?.setLanguage(Locale("mr_IN"))
 
                     }
-                    else -> textToSpeech?.setLanguage(Locale("en","IN"))
+                    else -> textToSpeech?.setLanguage(Locale("en", "IN"))
 
                 }
                 Locale.getAvailableLocales().forEach {
@@ -288,9 +312,13 @@ class EditTextRecogniserFragment : BaseFragment(), View.OnClickListener {
     private fun ConvertTextToSpeech() {
         if (text == null || "" == text) {
             text = "Content not available"
-            textToSpeech?.speak(binding?.editTextTextRecogniser?.text?.trim()
-                .toString(), TextToSpeech.QUEUE_FLUSH, null)
-        } else textToSpeech?.speak(binding?.editTextTextRecogniser?.text?.trim()
-            .toString(), TextToSpeech.QUEUE_FLUSH, null)
+            textToSpeech?.speak(
+                binding?.editTextTextRecogniser?.text?.trim()
+                    .toString(), TextToSpeech.QUEUE_FLUSH, null
+            )
+        } else textToSpeech?.speak(
+            binding?.editTextTextRecogniser?.text?.trim()
+                .toString(), TextToSpeech.QUEUE_FLUSH, null
+        )
     }
 }

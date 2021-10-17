@@ -1,6 +1,7 @@
 package com.devkanhaiya.bookreader.data.pojo
 
 class Document(
-        val image: Int,
-        val title: String
+    val text: String,
+    val title: String,
+    var isWatched: Boolean = false
 )

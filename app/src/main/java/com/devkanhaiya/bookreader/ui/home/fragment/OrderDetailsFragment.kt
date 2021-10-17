@@ -2,28 +2,38 @@ package com.devkanhaiya.bookreader.ui.home.fragment
 
 import android.graphics.drawable.ColorDrawable
 import android.speech.tts.TextToSpeech
+import android.speech.tts.UtteranceProgressListener
+import android.text.method.ScrollingMovementMethod
 import android.util.Log
 import android.view.View
 import com.devkanhaiya.bookreader.R
+import com.devkanhaiya.bookreader.data.pojo.Document
 import com.devkanhaiya.bookreader.data.pojo.Transport
 import com.devkanhaiya.bookreader.databinding.HomeOrderDetailsFragmentBinding
 import com.devkanhaiya.bookreader.di.component.FragmentComponent
 import com.devkanhaiya.bookreader.ui.Const
 import com.devkanhaiya.bookreader.ui.base.BaseFragment
+import com.devkanhaiya.bookreader.ui.home.adapter.DocumentAdapter
 import com.devkanhaiya.bookreader.ui.isolated.IsolatedActivity
 import com.ewayapp.util.AppUtil
 import com.google.android.ads.nativetemplates.NativeTemplateStyle
 import com.google.android.gms.ads.AdLoader
 import com.google.android.gms.ads.admanager.AdManagerAdRequest
 import java.util.*
+import kotlin.collections.ArrayList
 
 
-class OrderDetailsFragment : BaseFragment() {
+class OrderDetailsFragment : BaseFragment(), DocumentAdapter.Listener {
 
     var binding: HomeOrderDetailsFragmentBinding? = null
     var textToSpeech: TextToSpeech? = null
     var text: String? = null
     var transport: Transport? = null
+    var list = ArrayList<Document>()
+
+    private val adapter by lazy {
+        DocumentAdapter(list, this)
+    }
 
     override fun createLayout(): Int = R.layout.home_order_details_fragment
 
@@ -52,16 +62,51 @@ class OrderDetailsFragment : BaseFragment() {
 
         setUpToolBar()
         transport = arguments?.getParcelable<Transport>(Const.TRANSPORT)
-        transport?.directory?.let {
-            AppUtil.loadImages(
-                requireContext(),
-                it, binding!!.imageViewPhoto
-            )
-        }
-        text = transport?.text
-        convertText()
+        if (transport?.id == null) {
+            binding?.textViewPhoto?.visibility = View.GONE
+            transport?.directory?.let {
+                AppUtil.loadImages(
+                    requireContext(),
+                    it, binding!!.imageViewPhoto
+                )
+            }
+            text = transport?.text
 
-        binding?.tvTitle?.text = transport?.title
+        } else {
+            binding!!.imageViewPhoto.visibility = View.INVISIBLE
+            binding?.textViewPhoto?.text = transport?.text
+            binding?.textViewPhoto?.movementMethod = ScrollingMovementMethod()
+            if (transport?.language == 0) {
+                val engWords =
+                    "After Introduction we will start our story .  Are you looking for a way to level up your English? Have you tried reading, but you always get bored, or find it too hard?\n" +
+                            "\nThen you should try my app! Here Stories in English is a collection of multiple stories .\n" +
+                            "Take your English to the next level today!" +
+                            "OK,If you like this story share with your friends...." +
+                            "Lets Start..... "
+                text = engWords + transport?.text
+
+            } else if (transport?.language == 2) {
+                val marathi =
+                    "परिचयानंतर आपण आपली कथा सुरू करू.  तुम्ही स्वत: मनोरंजनकरण्याचा मार्ग शोधत आहात का? तुम्ही मराठी वाचनकथा वाचण्याचा प्रयत्न केला आहे का, पण तुम्हाला नेहमीच कंटाळा येतो, की वाचायला खूप कठीण वाटते?" +
+                            "   येथे मराठीतील कथा हा एकाधिक कथांचा संग्रह आहे.          " +
+                            "                  \"आनंद घेण्यासाठी वेळ काढा!\" ठीक आहे, जर तुम्हाला ही कथा आवडली तर तुमच्या मित्रांसोबत सामायिक करा...\n"
+                text = marathi + " " + transport?.text
+
+            }else if (transport?.language == 1) {
+                val marathi =
+                    "हम परिचय के बाद अपनी कहानी शुरू करेंगे।  क्या आप अपने आप को मनोरंजन करने का तरीका ढूंढ रहे हैं? क्या आपने हिंदी कहानियां पढ़ने की कोशिश की है, लेकिन क्या आप हमेशा ऊब जाते हैं या पढ़ना बहुत मुश्किल लगता है? + +\n" +
+                            "                            \"यहां हिंदी कहानी कई कहानियों का संग्रह है ।          \" +\n" +
+                            "                            \"आनंद लेने के लिए समय निकालें!\" ठीक है, यदि आप इस कहानी को पसंद करते हैं, तो इसे अपने दोस्तों के साथ साझा करें ... \n"
+                text = marathi + " " + transport?.text
+
+            } else {
+                text = transport?.text
+
+            }
+        }
+
+
+        binding?.tvTitle?.text = transport?.title + ": " + transport?.description
         binding?.ivStop?.setOnClickListener {
             if (textToSpeech != null) {
 
@@ -70,13 +115,43 @@ class OrderDetailsFragment : BaseFragment() {
             }
             navigator.goBack()
         }
-
+        setUpTransportRecyclerView()
+        addParts()
+        if (list.isNotEmpty()) {
+            adapter.listener.onPartClicked(list.get(0))
+        }
     }
 
+    var partsNo = 1
+    private var docText = "Hello"
+    private fun addParts() {
+        docText = text.toString()
+        addingPartsInto()
+    }
+
+    fun addingPartsInto() {
+        if (!docText.isNullOrEmpty()) {
+            if (docText.length < 2000) {
+                list.add(Document(docText, "Part " + partsNo))
+                partsNo += 1
+            } else {
+                list.add(Document(docText.substring(0, 2000), "Part " + partsNo))
+                partsNo += 1
+                docText = docText.substring(2000, docText.length)
+                addingPartsInto()
+            }
+        }
+    }
+
+    private fun setUpTransportRecyclerView() {
+        binding!!.recyclerViewStoryParts.apply {
+            adapter = this@OrderDetailsFragment.adapter
+        }
+    }
 
     private fun setUpToolBar() {
-        (activity as IsolatedActivity).showTitle(true, getString(R.string.title_order_details))
-
+        (activity as IsolatedActivity).showTitle(true, "Wait Starting.....")
+        binding?.progressBar?.visibility=View.VISIBLE
     }
 
     override fun destroyViewBinding() {
@@ -97,7 +172,12 @@ class OrderDetailsFragment : BaseFragment() {
 
     }
 
-    private fun convertText() {
+    private fun convertText(docText: String) {
+        if (textToSpeech != null) {
+
+            textToSpeech?.stop();
+            textToSpeech?.shutdown();
+        }
         textToSpeech = TextToSpeech(requireContext(), TextToSpeech.OnInitListener() {
             if (it === TextToSpeech.SUCCESS) {
                 val result: Int? = when (transport?.language) {
@@ -121,16 +201,49 @@ class OrderDetailsFragment : BaseFragment() {
                 ) {
                     Log.e("error", "This Language is not supported")
                 } else {
-                    ConvertTextToSpeech()
+                    ConvertTextToSpeech(docText)
                 }
             } else Log.e("error", "Initilization Failed!")
         })
+        if (textToSpeech != null) {
+            textToSpeech!!.setPitch(1.10f)
+            textToSpeech!!.setSpeechRate(1.10f)
+
+        }
     }
 
-    private fun ConvertTextToSpeech() {
-        if (text == null || "" == text) {
-            text = "Content not available"
-            textToSpeech?.speak(text, TextToSpeech.QUEUE_FLUSH, null)
-        } else textToSpeech?.speak(text.toString(), TextToSpeech.QUEUE_FLUSH, null)
+    private fun ConvertTextToSpeech(docText: String) {
+        textToSpeech?.setOnUtteranceProgressListener(object : UtteranceProgressListener() {
+            override fun onStart(utteranceId: String?) {
+                Log.d(TAG, "onStart: ")
+            }
+
+            override fun onDone(utteranceId: String?) {
+
+                Log.d(TAG, "onDone: ")
+            }
+
+            override fun onError(utteranceId: String?) {
+
+                Log.d(TAG, "onError: ")
+            }
+        })
+        if (docText == null || "" == docText) {
+            val emptytext = "Content not available"
+            textToSpeech?.speak(emptytext, TextToSpeech.QUEUE_FLUSH, null)
+        } else textToSpeech?.speak(docText.toString(), TextToSpeech.QUEUE_FLUSH, null)
+
+        (activity as IsolatedActivity).showTitle(true, getString(R.string.title_order_details))
+        binding?.progressBar?.visibility=View.GONE
+
+    }
+
+    override fun onPartClicked(doc: Document) {
+        convertText(doc.text)
+        binding?.textViewPhoto?.text = doc.text
+    }
+
+    companion object {
+        const val TAG = "DetailsScreen"
     }
 }

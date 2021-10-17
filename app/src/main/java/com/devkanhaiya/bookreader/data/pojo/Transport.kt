@@ -10,6 +10,8 @@ class Transport(
     val description: String,
     val destinationDate: String,
     val directory: String,
-    val language: Int
+    val language: Int,
+    var isDeletable: Boolean = true,
+    var id: Int? = null
 
 ) : Parcelable

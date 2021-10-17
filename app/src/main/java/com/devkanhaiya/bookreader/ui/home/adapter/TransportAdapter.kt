@@ -21,6 +21,9 @@ class TransportAdapter(private val listener: ClickListener) :
             textViewTransportId.text = transport.description
             textViewDate.text = transport.destinationDate
             AppUtil.loadImages(textViewBoarding.context, transport.directory, imageViewBack)
+            if (!transport.isDeletable) {
+                ivDelete.visibility = View.GONE
+            }
         }
 
         override fun onClick(v: View?) {

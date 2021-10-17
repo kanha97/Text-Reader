@@ -44,6 +44,7 @@ import com.google.mlkit.vision.text.TextRecognizer
 import com.google.mlkit.vision.text.devanagari.DevanagariTextRecognizerOptions
 import com.google.mlkit.vision.text.latin.TextRecognizerOptions
 import kotlinx.android.synthetic.main.home_main_activity.*
+import uk.co.samuelwall.materialtaptargetprompt.MaterialTapTargetPrompt
 
 
 class HomeMainActivity : BaseActivity(), View.OnClickListener {
@@ -149,7 +150,7 @@ class HomeMainActivity : BaseActivity(), View.OnClickListener {
             }
 
     }
-
+    private var appUpdateManager: AppUpdateManager? = null
     override fun findFragmentPlaceHolder(): Int = R.id.placeHolder
 
     override fun findContentView(): Int = R.layout.home_main_activity
@@ -169,6 +170,7 @@ class HomeMainActivity : BaseActivity(), View.OnClickListener {
         setUpToolbar()
         showBackSymbol(false)
         setUpNavigationView()
+        appUpdateManager   = AppUpdateManagerFactory.create(this)
 
         MobileAds.initialize(this) {
             Log.d("TAG", "onCreate: $it")
@@ -183,6 +185,32 @@ class HomeMainActivity : BaseActivity(), View.OnClickListener {
         binding.imageButtonBack.setOnClickListener(this)
         binding.floatingActionCamera.setOnClickListener(this)
         binding.floatingActionButtonWhatsApp.setOnClickListener(this)
+        openTutorialScreen()
+    }
+
+    private fun openTutorialScreen() {
+        if (!appPreferences.getBoolean(Const.LOG_IN_FIRST)){
+
+            MaterialTapTargetPrompt.Builder(this)
+                .setTarget(binding.floatingActionCamera)
+                .setPrimaryText("Make your First Image Text")
+                .setSecondaryText("Tap the Icon to Select Image Required to Speak")
+                .setPromptStateChangeListener (object :MaterialTapTargetPrompt.PromptStateChangeListener{
+                    override fun onPromptStateChanged(
+                        prompt: MaterialTapTargetPrompt?,
+                        state: Int
+                    ) {
+
+
+                    }
+
+                }).show()
+
+
+
+         //   appPreferences.putBoolean(Const.LOG_IN_FIRST,false)
+        }
+
     }
 
 
@@ -240,7 +268,8 @@ class HomeMainActivity : BaseActivity(), View.OnClickListener {
             binding.floatingActionCamera -> {
                 //    showImageSelectionDialog()
                 ImagePicker.with(this)
-                    .compress(1024)            //Final image size will be less than 1 MB(Optional)
+                    .compress(1024)
+                    .crop() //Final image size will be less than 1 MB(Optional)
                     .maxResultSize(
                         1080,
                         1080
@@ -353,14 +382,13 @@ class HomeMainActivity : BaseActivity(), View.OnClickListener {
         checkForUpdates()
     }
 
-    private val appUpdateManager: AppUpdateManager = AppUpdateManagerFactory.create(this)
 
 
     fun checkForUpdates() {
-        val appUpdateInfo = appUpdateManager.appUpdateInfo
+        val appUpdateInfo = appUpdateManager?.appUpdateInfo
         try {
-            appUpdateInfo.addOnSuccessListener {
-                handleUpdate(appUpdateManager, appUpdateInfo)
+            appUpdateInfo?.addOnSuccessListener {
+                appUpdateManager?.let { it1 -> handleUpdate(it1, appUpdateInfo) }
             }
         } catch (ex: Exception) {
             ex.printStackTrace()

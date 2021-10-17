@@ -100,10 +100,10 @@ class SettingsAdapter(private val listener: ClickListener, private val settingsL
     override fun getItemViewType(position: Int): Int {
         return when (position) {
             1 -> {
-                Const.NOTIFICATION
+                Const.COMMON
             }
             2 -> {
-                Const.VIEW_RIGHT
+                Const.COMMON
             }
             else -> {
                 Const.COMMON
