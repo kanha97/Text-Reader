@@ -5,13 +5,17 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 class Transport(
-    val text: String,
-    val title: String,
-    val description: String,
-    val destinationDate: String,
-    val directory: String,
-    val language: Int,
+    var text: String? = null,
+    var title: String? = null,
+    var description: String? = null,
+    var destinationDate: String? = null,
+    var directory: String? = null,
+    var language: Int? = null,
     var isDeletable: Boolean = true,
-    var id: Int? = null
+    var id: Long? = null,
+    var types: Long? = null
 
-) : Parcelable
+) : Parcelable {
+    constructor() : this(null)
+
+}

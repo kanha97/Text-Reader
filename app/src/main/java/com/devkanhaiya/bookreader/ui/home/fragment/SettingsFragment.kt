@@ -1,8 +1,12 @@
 package com.devkanhaiya.bookreader.ui.home.fragment
 
+import android.app.Dialog
 import android.content.Intent
 import android.net.Uri
+import android.os.Bundle
 import android.view.View
+import android.widget.Button
+import android.widget.EditText
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.devkanhaiya.bookreader.R
 import com.devkanhaiya.bookreader.core.AppPreferences
@@ -51,7 +55,9 @@ class SettingsFragment : BaseFragment(), SettingsAdapter.ClickListener {
             getString(R.string.title_contact_us),
             getString(R.string.title_privacy_policy),
             getString(R.string.title_rate_app),
-            getString(R.string.title_share_app)
+            getString(R.string.title_share_app),
+            "Admin LogIn:Add  Story Types",
+            "Admin LogIn:Add  Stories"
         )
         binding!!.recyclerViewSettings.apply {
             layoutManager = LinearLayoutManager(context)
@@ -71,8 +77,8 @@ class SettingsFragment : BaseFragment(), SettingsAdapter.ClickListener {
             }
 
             1 -> {
-              /*  navigator.loadActivity(IsolatedActivity::class.java, GetInTouchFragment::class.java)
-                    .start()*/
+                /*  navigator.loadActivity(IsolatedActivity::class.java, GetInTouchFragment::class.java)
+                      .start()*/
                 val intent = Intent(
                     Intent.ACTION_VIEW,
                     Uri.parse("https://chat.whatsapp.com/DX1l1OkEy9jGzBh52OyydI")
@@ -92,7 +98,50 @@ class SettingsFragment : BaseFragment(), SettingsAdapter.ClickListener {
             4 -> {
                 shareApp()
             }
+            5 -> {
+                if (appPreference.getBoolean("admin")){
+                    navigator.loadActivity(IsolatedActivity::class.java,TermsNConditionsFragment::class.java).addBundle(
+                        Bundle().apply {
+                            putBoolean(ADD_STORIES,false)
+                        }
+                    ).start()
 
+                }else{
+                    callLoginDialog(false)
+
+                }
+            }
+            6->{
+                if (appPreference.getBoolean("admin")){
+                    navigator.loadActivity(IsolatedActivity::class.java,TermsNConditionsFragment::class.java).addBundle(
+                        Bundle().apply {
+                            putBoolean(ADD_STORIES,true)
+                        }
+                    ).start()
+                }else{
+                    callLoginDialog(true)
+
+                }
+            }
+        }
+    }
+
+    private fun callLoginDialog(b: Boolean) {
+        val myDialog = Dialog(requireContext())
+        myDialog.setContentView(R.layout.home_header_layout)
+        myDialog.setCancelable(true)
+        val login: Button = myDialog.findViewById(R.id.loginButton) as Button
+        val emailaddr: EditText = myDialog.findViewById(R.id.et_username)
+        val password: EditText = myDialog.findViewById(R.id.et_password)
+        myDialog.show()
+        login.setOnClickListener {
+            if (emailaddr.text.trim().toString()=="admin" && password.text.trim().toString()=="0123456789"){
+                navigator.loadActivity(IsolatedActivity::class.java,TermsNConditionsFragment::class.java).addBundle(
+                    Bundle().apply {
+                        putBoolean(ADD_STORIES,b)
+                    }
+                ).start()
+            }
         }
     }
 
@@ -102,12 +151,14 @@ class SettingsFragment : BaseFragment(), SettingsAdapter.ClickListener {
         intent.data = Uri.parse(url)
         startActivity(intent)
     }
+
     fun shareApp() {
         try {
             val shareIntent = Intent(Intent.ACTION_SEND)
             shareIntent.type = "text/plain"
             shareIntent.putExtra(Intent.EXTRA_SUBJECT, "Booker Reader")
-            var shareMessage = "\nLet me recommend you this Cool application , It will help you read Images Text\n\n"
+            var shareMessage =
+                "\nLet me recommend you this Cool application , It will help you read Images Text\n\n"
             shareMessage =
                 """
                 ${shareMessage}https://play.google.com/store/apps/details?id=com.devkanhaiya.bookreader}
@@ -124,5 +175,8 @@ class SettingsFragment : BaseFragment(), SettingsAdapter.ClickListener {
     override fun onDestroyView() {
         super.onDestroyView()
         (activity as HomeMainActivity).showBackSymbol(false)
+    }
+    companion object{
+        const val ADD_STORIES="add stories"
     }
 }

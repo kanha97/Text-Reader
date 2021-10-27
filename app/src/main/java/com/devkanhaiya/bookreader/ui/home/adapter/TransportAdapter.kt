@@ -20,7 +20,10 @@ class TransportAdapter(private val listener: ClickListener) :
             textViewBoarding.text = transport.title
             textViewTransportId.text = transport.description
             textViewDate.text = transport.destinationDate
-            AppUtil.loadImages(textViewBoarding.context, transport.directory, imageViewBack)
+            transport.directory?.let {
+                AppUtil.loadImages(textViewBoarding.context,
+                    it, imageViewBack)
+            }
             if (!transport.isDeletable) {
                 ivDelete.visibility = View.GONE
             }

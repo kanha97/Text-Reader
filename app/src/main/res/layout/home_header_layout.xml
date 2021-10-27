@@ -9,52 +9,71 @@
         style="@style/ImageHeader"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:src="@drawable/header_image"
+        android:src="@drawable/image_about_us"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintDimensionRatio="1.6"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/cardViewProfile"
-        android:layout_width="90dp"
-        android:layout_height="90dp"
-        app:cardCornerRadius="50dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <LinearLayout
+        android:layout_width="300dp"
+        android:layout_height="match_parent"
+        android:layout_margin="10dip"
+        android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:strokeColor="@color/colorWhite"
-        app:strokeWidth="2dp">
+        app:layout_constraintStart_toStartOf="parent">
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/imageViewProfile"
-            android:layout_width="90dp"
-            android:layout_height="90dp"
-            android:background="@color/colorWhite"
-            android:scaleType="centerCrop"
-            android:src="@drawable/header_image" />
-    </com.google.android.material.card.MaterialCardView>
+        <TextView
+            android:id="@+id/lbl_username"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dip"
+            android:gravity="center"
+            android:text="@string/username"
+            android:textColor="#FFEBEE"
+            android:textSize="15sp" />
 
-    <androidx.appcompat.widget.AppCompatImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/imageViewEditProfile"
-        android:src="@drawable/ic_header_edit"
-        android:translationZ="15dp"
-        app:layout_constraintBottom_toBottomOf="@id/cardViewProfile"
-        app:layout_constraintEnd_toEndOf="@id/cardViewProfile"
-        app:layout_constraintStart_toStartOf="@id/cardViewProfile"
-        app:layout_constraintTop_toBottomOf="@id/cardViewProfile" />
+        <EditText
+            android:id="@+id/et_username"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dip"
+            android:hint="@string/enter_username"
+            android:inputType="textEmailAddress"
+            android:textColor="#ffffff"
+            android:textColorHint="#ffffff"
+            android:textSize="12sp" />
 
-    <androidx.appcompat.widget.AppCompatTextView
-        style="@style/AppTheme.AppTextView.InterSemiBoldWhite20"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="@string/label_julia_robert"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/cardViewProfile" />
+        <TextView
+            android:id="@+id/lbl_password"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dip"
+            android:gravity="center"
+            android:text="@string/password"
+            android:textColor="#FFEBEE"
+            android:textSize="15sp" />
+
+        <EditText
+            android:id="@+id/et_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dip"
+            android:hint="@string/enter_password"
+            android:inputType="textPassword"
+            android:singleLine="true"
+            android:textColor="#ffffff"
+            android:textColorHint="#ffffff"
+            android:textSize="12sp" />
+
+
+        <Button
+            android:id="@+id/loginButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="15dip"
+            android:text="@string/login" />
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

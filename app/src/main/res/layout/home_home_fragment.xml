@@ -54,7 +54,7 @@
             android:id="@+id/recyclerViewHomeStories"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="20dp"
+            android:paddingTop="20dp"
             android:background="#66E91E63"
             tools:listitem="@layout/transport_item_layout" />
 

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Book Reader</string>
+    <string name="app_name">Book &amp; Stories Reader</string>
 
 
     <string name="banner_id">ca-app-pub-1340962408919470/4865622440</string>
@@ -174,5 +174,15 @@
     <string name="ok">Ok</string>
     <string name="select_translate_language">\"Select language to Translate : \"</string>
     <string name="confirm_translate_language">Confirm Translate Language  is</string>
+    <string name="username" translatable="false">UserName</string>
+    <string name="enter_username" translatable="false">Enter username</string>
+    <string name="password" translatable="false">password</string>
+    <string name="enter_password" translatable="false">Enter password</string>
+    <string name="login" translatable="false">Login</string>
 
+        <string-array name="languages">
+            <item>English story</item>
+            <item>Hindi Story</item>
+            <item>Marathi Story</item>
+        </string-array>
 </resources>

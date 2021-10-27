@@ -78,25 +78,18 @@ class OrderDetailsFragment : BaseFragment(), DocumentAdapter.Listener {
             binding?.textViewPhoto?.movementMethod = ScrollingMovementMethod()
             if (transport?.language == 0) {
                 val engWords =
-                    "After Introduction we will start our story .  Are you looking for a way to level up your English? Have you tried reading, but you always get bored, or find it too hard?\n" +
-                            "\nThen you should try my app! Here Stories in English is a collection of multiple stories .\n" +
-                            "Take your English to the next level today!" +
-                            "OK,If you like this story share with your friends...." +
+
                             "Lets Start..... "
                 text = engWords + transport?.text
 
             } else if (transport?.language == 2) {
                 val marathi =
-                    "परिचयानंतर आपण आपली कथा सुरू करू.  तुम्ही स्वत: मनोरंजनकरण्याचा मार्ग शोधत आहात का? तुम्ही मराठी वाचनकथा वाचण्याचा प्रयत्न केला आहे का, पण तुम्हाला नेहमीच कंटाळा येतो, की वाचायला खूप कठीण वाटते?" +
-                            "   येथे मराठीतील कथा हा एकाधिक कथांचा संग्रह आहे.          " +
-                            "                  \"आनंद घेण्यासाठी वेळ काढा!\" ठीक आहे, जर तुम्हाला ही कथा आवडली तर तुमच्या मित्रांसोबत सामायिक करा...\n"
+                   "आपण प्रारंभ करूया"
                 text = marathi + " " + transport?.text
 
             }else if (transport?.language == 1) {
                 val marathi =
-                    "हम परिचय के बाद अपनी कहानी शुरू करेंगे।  क्या आप अपने आप को मनोरंजन करने का तरीका ढूंढ रहे हैं? क्या आपने हिंदी कहानियां पढ़ने की कोशिश की है, लेकिन क्या आप हमेशा ऊब जाते हैं या पढ़ना बहुत मुश्किल लगता है? + +\n" +
-                            "                            \"यहां हिंदी कहानी कई कहानियों का संग्रह है ।          \" +\n" +
-                            "                            \"आनंद लेने के लिए समय निकालें!\" ठीक है, यदि आप इस कहानी को पसंद करते हैं, तो इसे अपने दोस्तों के साथ साझा करें ... \n"
+                    " शुरू करें ... \n"
                 text = marathi + " " + transport?.text
 
             } else {

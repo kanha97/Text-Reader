@@ -42,6 +42,14 @@ class HomeFragment : BaseFragment(), TransportAdapter.ClickListener {
             override fun addOnClick(transport: Transport) {
 
 
+                val bundle = Bundle()
+                bundle.putParcelable(Const.TRANSPORT, transport)
+                navigator.loadActivity(
+                    IsolatedActivity::class.java,
+                    AccountOpenJobsFragment::class.java
+                )
+                    .addBundle(bundle).start()
+
             }
 
             override fun addOnDeleteClick(transport: ArrayList<Transport?>) {
@@ -79,7 +87,12 @@ class HomeFragment : BaseFragment(), TransportAdapter.ClickListener {
             "".let {
                 Transport(
 
-                    "The Velveteen Rabbit........." +
+                    "\"After Introduction we will start our story .  Are you looking for a way to level up your English? Have you tried reading, but you always get bored, or find it too hard?\\n\" +\n" +
+                            "                            \"\\nThen you should try my app! Here Stories in English is a collection of multiple stories .\\n\" +\n" +
+                            "                            \"Take your English to the next level today!\" +\n" +
+                            "                            \"OK,If you like this story share with your friends....\"" +
+                            "Lets Start....." +
+                            "The Velveteen Rabbit........." +
                             " A soft and fluffy Velveteen Rabbit lived in a toybox in a Boy's room.  Each day, the Boy opened the toybox and picked up Velveteen Rabbit. And Velveteen Rabbit was happy.\n" +
                             "\n" +
                             "Then newer, brighter toys came into the toybox.  They had special tricks.  Some could move when the Boy pushed a button.  Others bounced high. \n" +
@@ -196,7 +209,10 @@ class HomeFragment : BaseFragment(), TransportAdapter.ClickListener {
             }
             "".let {
                 Transport(
-                    "पहिलं प्रेम ( Marathi Love Story)\n" +
+                    " \"परिचयानंतर आपण आपली कथा सुरू करू.  तुम्ही स्वत: मनोरंजनकरण्याचा मार्ग शोधत आहात का? तुम्ही मराठी वाचनकथा वाचण्याचा प्रयत्न केला आहे का, पण तुम्हाला नेहमीच कंटाळा येतो, की वाचायला खूप कठीण वाटते?\" +\n" +
+                            "                            \"   येथे मराठीतील कथा हा एकाधिक कथांचा संग्रह आहे.          \" +\n" +
+                            "                            \"                  \\\"आनंद घेण्यासाठी वेळ काढा!\\\" ठीक आहे, जर तुम्हाला ही कथा आवडली तर तुमच्या मित्रांसोबत share करा...\\n\"" +
+                            "पहिलं प्रेम ( Marathi Love Story)\n" +
                             "१० वी पर्यंत मुलांच्या शाळेत शिकलो. ११ वी - १२ वी पण छोट्या कॉलेज ला असल्यामुळे तिथे पण फार मुली नव्हत्या. त्यामुळे मुलींमध्ये गेल्यावर त्यांच्याबरोबर कसे बोलायचे कसे वागायचे ह्याचा फारसा अनुभव नव्हता.  १२ वी नंतर मोठ्या कॉलेज ला गेलो.\n" +
                             "आणि Fy च्या पहिल्याच दिवशी ती दिसली.  तिकडे एका घोळक्यात थांबली होती.\n" +
                             "तिच अतिशय सुंदर,  निरामय आणि मनमोकळं हास्य पाहून मनाला खूप छान वाटलं. जाऊन तिच्याशी बोलावंसं वाटलं.\n" +
@@ -316,7 +332,11 @@ class HomeFragment : BaseFragment(), TransportAdapter.ClickListener {
             }
             "".let {
                 Transport(
-                    "सच्चे प्यार की लव स्टोरी....." +
+                    "   \"हम परिचय के बाद अपनी कहानी शुरू करेंगे।  क्या आप अपने आप को मनोरंजन करने का तरीका ढूंढ रहे हैं? क्या आपने हिंदी कहानियां पढ़ने की कोशिश की है, लेकिन क्या आप हमेशा ऊब जाते हैं या पढ़ना बहुत मुश्किल लगता है? + +\\n\" +\n" +
+                            "                            \"                            \\\"यहां हिंदी कहानी कई कहानियों का संग्रह है ।          \\\" +\\n\" +\n" +
+                            "                            \"                            \\\"आनंद लेने के लिए समय निकालें!\\\" ठीक है, यदि आप इस कहानी को पसंद करते हैं, तो इसे अपने दोस्तों के साथ साझा करें ... \\n\"\n" +
+                            "             " +
+                            "सच्चे प्यार की लव स्टोरी....." +
                             "ऋषि को चौदह साल की उम्र में ही पहला प्यार हो गया था| ऋषि उस समय आठवीं क्लास में था, उम्र कम थी लेकिन मॉर्डन ज़माने में लोग इसी उम्र में प्यार कर बैठते हैं|\n" +
                             "\n" +
                             "ऋषि का ये पहला प्यार उसकी क्लास में पढ़ने वाली लड़की “नीलम” के साथ था| नीलम अमीर घराने की लड़की थी, उम्र यही कोई 13 -14 साल ही होगी और दिखने में बला की खूबसूरत थी| नीलम के पापा का प्रापर्टी डीलिंग का काम था, अच्छे पैसे वाले लोग थे|\n" +
@@ -440,22 +460,29 @@ class HomeFragment : BaseFragment(), TransportAdapter.ClickListener {
 
     private fun setUpStoriesRecyclerView() {
         storieslist = ArrayList<Transport?>()
+        storieslist!!.clear()
         storieslist?.apply {
             add(
-                Transport("","हिंदी कहानियां",
+                Transport(
+                    "", "हिंदी कहानियां",
                     "हिंदी कहानियों को सुनें और आनंद लें",
-                    "", "", 1, false, 1)
+                    "", "", 1, false, 1
+                )
             )
             add(
-                Transport("",   "मराठी गोस्टी",
+                Transport(
+                    "", "मराठी गोस्टी",
                     "ऐका आणि मराठी गोस्टीचा आनंद घ्या",
                     "", "", 2, false, 2
-                ))
+                )
+            )
             add(
-                Transport("",   "English Stories",
+                Transport(
+                    "", "English Stories",
                     "Here & Enjoy English Stories",
-                    "", "", 3, false, 3
-                ))
+                    "", "", 3, false, 0
+                )
+            )
         }
         storiesAdapter.setTransportList(storieslist)
         binding!!.recyclerViewHomeStories.apply {
@@ -521,6 +548,36 @@ class HomeFragment : BaseFragment(), TransportAdapter.ClickListener {
                 navigator.loadActivity(
                     IsolatedActivity::class.java,
                     OrderDetailsFragment::class.java
+                )
+                    .addBundle(bundle).start()
+            }
+
+            override fun onAdFailedToShowFullScreenContent(adError: AdError) {
+                // Called when fullscreen content failed to show.
+                Log.d("TAG", "The ad failed to show.")
+            }
+
+            override fun onAdShowedFullScreenContent() {
+                // Called when fullscreen content is shown.
+                // Make sure to set your reference to null so you don't
+                // show it a second time.
+                mInterstitialAd = null
+                Log.d("TAG", "The ad was shown.")
+            }
+        }
+
+    }
+
+    fun showAddonClick(transport: Transport) {
+        mInterstitialAd!!.fullScreenContentCallback = object : FullScreenContentCallback() {
+            override fun onAdDismissedFullScreenContent() {
+                // Called when fullscreen content is dismissed.
+                Log.d("TAG", "The ad was dismissed.")
+                val bundle = Bundle()
+                bundle.putParcelable(Const.TRANSPORT, transport)
+                navigator.loadActivity(
+                    IsolatedActivity::class.java,
+                    AccountOpenJobsFragment::class.java
                 )
                     .addBundle(bundle).start()
             }
